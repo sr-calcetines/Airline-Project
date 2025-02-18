@@ -19,7 +19,6 @@ class PlaneFactory extends Factory
         return [
             "name" => fake()->word(),
             "max_capacity" => fake()->numberBetween(100, 200),
-            "reserved" =>fake()->numberBetween(0, 200)
         ];
     }
 }
