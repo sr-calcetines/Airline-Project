@@ -12,11 +12,36 @@ class FlightController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $flights = Flight::All();
+        if ($request->action === 'delete') {
+            $this->destroy($request->id);
+            return redirect()->route('flights');
+        }
 
-        return view('flights', compact('flights.flights'));
+        $flights = Flight::where('date', '>=', now())->orderBy('date', 'desc')->get();
+
+        return view('flights.flights', compact('flights'));
+    }
+
+    public function pastFlights(Request $request)
+    {
+        if ($request->action === 'delete') {
+            $this->destroy($request->id);
+            return redirect()->route('pastFlights');
+        }
+
+        $pastFlights = Flight::where('date', '<', now())->orderBy('date', 'desc')->get();
+
+        foreach($pastFlights as $flight){
+            $flight->update(
+                [
+                    "reserved" => $flight->plane->max_capacity 
+                ]
+            );
+        }
+
+        return view('flights.pastFlights', compact('pastFlights'));
     }
 
     /**
@@ -36,16 +61,17 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        $flight = Flight::create([
+        $flights = Flight::create([
             'date' => $request->date,
             'departure' => $request->departure,
             'arrival' => $request->arrival,
             'plane_id' => $request->plane_id,
-            'aviable' => $request->aviable
+            'reserved' => $request->reserved,
+            'aviable' => 0
         ]);
-        $flight->save();
+        $flights->save();
 
-        return redirect()->route('flights.flights');
+        return redirect()->route('flights');
     }
 
     /**
@@ -53,20 +79,20 @@ class FlightController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $flight = Flight::find($id);
-        $booked = count($flight->users()->where("user_id", Auth::id())->get());
+        $flights = Flight::find($id);
+        $booked = count($flights->users()->where("user_id", Auth::id())->get());
 
         if ($request->action === "book" && !$booked)
         {
-            $this->book($flight, Auth::id());
-            return (Redirect::to(route("flights.flightShow", $flight->id)));
+            $this->book($flights, Auth::id());
+            return (Redirect::to(route("flightShow", $flights->id)));
         }
-        if ($request->action == "debook" && $booked)
+        if ($request->action == "unbook" && $booked)
         {
-            $this->debook($flight, Auth::id());
-            return (Redirect::to(route("flights.flightShow", $flight->id)));
+            $this->unbook($flights, Auth::id());
+            return (Redirect::to(route("flightShow", $flights->id)));
         }
-        return (view("flights.flightShow", compact("flight", "booked")));
+        return (view("flights.flightShow", compact("flights", "booked")));
         
     }
 
@@ -78,8 +104,8 @@ class FlightController extends Controller
         
         if( Auth::user()->isAdmin=true){
 
-            $flight = Flight::find($id);
-            return view('flights.editFlightForm', compact('flight'));
+            $flights = Flight::find($id);
+            return view('flights.editFlightForm', compact('flights'));
         }
         
     }
@@ -89,17 +115,18 @@ class FlightController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $flight = Flight::find($id);
+        $flights = Flight::find($id);
 
-        $flight->update([
+        $flights->update([
             'date' => $request->date,
             'departure' => $request->departure,
             'arrival' => $request->arrival,
             'plane_id' => $request->plane_id,
-            'aviable' => $request->aviable
+            'reserved' => $request->reserved,
+            'aviable' => $flights->aviable
         ]);
 
-        $flight->save();
+        $flights->save();
         return redirect()->route('flights');
     }
 
@@ -110,9 +137,50 @@ class FlightController extends Controller
     {
         if( Auth::user()->isAdmin=true){
 
-            $flight = Flight::find($id);
-            $flight->delete();
+            $flights = Flight::find($id);
+            $flights->delete();
 
+        }
+    }
+
+    public function book(Flight $flight, int $userId)
+    {
+        if ($flight->reserved == $flight->plane->max_capacity)
+        {
+            return;
+        }
+        $flight->users()->attach($userId);
+        $flight->update(
+            [
+                "reserved" => $flight->reserved + 1
+            ]
+        );
+        if ($flight->reserved == $flight->plane->max_capacity && !$flight->aviable)
+        {
+            $flight->update(
+                [
+                    "aviable" => 1
+                ]
+            );
+        }
+    }
+
+    public function unbook(Flight $flight, int $userId)
+    {
+        if ($flight->reserved == 0) {
+            return;
+        }
+
+        $flight->users()->detach($userId);
+
+        $flight->update([
+            "reserved" => $flight->reserved - 1
+        ]);
+
+        if ($flight->aviable) {
+            $flight->update([
+                "aviable" => 1
+            ]);
         }
     }
 }

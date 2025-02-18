@@ -11,11 +11,16 @@ class PlaneController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->action === 'delete') {
+            $this->destroy($request->id);
+            return redirect()->route('planes');
+        }
+
         $planes = Plane::All();
 
-        return view('planes', compact('planes.planes'));
+        return view('planes.planes', compact('planes'));
     }
 
     /**
@@ -38,11 +43,10 @@ class PlaneController extends Controller
         $plane = Plane::create([
             'name' => $request->name,
             'max_capacity' => $request->max_capacity,
-            'reserved' => $request->reserved
         ]);
         $plane->save();
 
-        return redirect()->route('planes.planes');
+        return redirect()->route('planes');
     }
 
     /**
@@ -51,7 +55,7 @@ class PlaneController extends Controller
     public function show(string $id)
     {
         $plane = Plane::findOrFail($id);
-        return view('planeShow', compact('planes.plane'));
+        return view('planes.planeShow', compact('plane'));
     }
 
     /**
@@ -62,7 +66,7 @@ class PlaneController extends Controller
         if( Auth::user()->isAdmin=true){
 
             $plane = Plane::find($id);
-            return view('editPlaneForm', compact('planes.plane'));
+            return view('planes.editPlaneForm', compact('plane'));
         }
         
     }
@@ -77,11 +81,10 @@ class PlaneController extends Controller
         $plane->update([
             'name' => $request->name,
             'max_capacity' => $request->max_capacity,
-            'reserved' => $request->reserved
         ]);
 
         $plane->save();
-        return redirect()->route('planes.planes');
+        return redirect()->route('planes');
     }
 
     /**
