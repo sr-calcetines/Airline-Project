@@ -1,0 +1,95 @@
+.crudBtn {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+.tableFlight, .tablePlane{
+    background: var(--tables-color);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1000px;
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.table-title {
+    color: var(--text-color-dark);
+    margin-bottom: 15px;
+    font-family: 2.5rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    padding: 12px;
+    border: 1px solid var(--secondary-color);
+    text-align: center;
+    color: var(--text-color);
+}
+
+.table th {
+    background-color: var(--secondary-color);
+}
+
+.table td{
+    color: var(--text-color-dark);
+}
+
+.table tr:hover {
+    background-color: #bbbbbb;
+}
+
+.active {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.inactive {
+    color: red;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .tableFlight {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .table th, .table td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .crudBtn {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .tableFlight {
+        width: 100%;
+        padding: 10px;
+    }
+    
+   
+    
+    .table th, .table td {
+        padding: 6px;
+        font-size: 0.8rem;
+    }
+    
+    .crudBtn {
+        width: 1rem;
+        height: 1rem;
+    }
+}

@@ -1,0 +1,236 @@
+.flight-card {
+    background: var(--tables-color);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 80%;
+    text-align: center;
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    align-items: center;
+    border: 2px dashed var(--secondary-color);
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.plane-card{
+    background: var(--tables-color);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 30%;
+    text-align: center;
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--secondary-color);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.flight-card::before, .flight-card::after, .plane-card::after, .plane-card::before {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: var(--background-color);
+    border-radius: 50%;
+}
+
+.flight-card::before, .plane-card::before {
+    top: 50%;
+    left: -20px;
+    transform: translateY(-50%);
+}
+
+.flight-card::after, .plane-card::after {
+    top: 50%;
+    right: -20px;
+    transform: translateY(-50%);
+}
+
+.card-title {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    color: var(--text-color);
+    font-size: 1.8rem;
+    padding: 10px;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-right: 2px dashed var(--secondary-color);
+    grid-column:1;
+}
+
+.card-content-plane{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-content p {
+    font-size: 1.2rem;
+    color: var(--text-color-dark);
+    padding: 5px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed var(--secondary-color);
+}
+
+.card-content p:last-child {
+    border-bottom: none;
+}
+
+.flight-route {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+
+.ticket-info {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.active {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.inactive {
+    color: red;
+    font-weight: bold;
+}
+
+/*grid*/
+.ticketBook{
+    grid-column:2;
+    height: 90%;
+}
+
+.reservation{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 60% 20% 20%;
+    flex-shrink: 0;
+    height: 100%;
+    padding-left: 25px;
+    padding-right: 12.5px;
+}
+
+.plane{
+    background-image: url('/img/planebg.png');
+    grid-column:1;
+    grid-row:1;
+    width: 100%;
+    height: 100%;
+    border-radius: 70px;
+    border: 5px solid #bdbdbd;
+}
+
+.plane-show-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plane-show-img{
+    background-image: url('/img/planebg.png');
+    grid-column:1;
+    grid-row:1;
+    width: 40%;
+    height: 40%;
+    border-radius: 70px;
+    border: 5px solid #bdbdbd;
+}
+
+.plane-data-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.bookDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column:1;
+    grid-row:2;
+    height: 100%;
+    padding-top: 0.5rem;
+}
+
+.bookBtn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    width: 3rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bookBtn p {
+    margin: 0;
+    color: inherit;
+}
+
+.bookBtn:hover {
+    background-color: var(--gh-color-hover);
+    transform: scale(1.05);
+}
+
+.notAviableDiv, .unsignedDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.warnBtn{
+    width: 2rem;
+    height: 2rem;
+}
+
+.barcodeDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.5rem;
+}
+
+.barcode{
+    width: 30rem;
+    grid-column:1;
+    grid-row:3;
+    width: 100%;
+    height: 100%;
+    padding-top: 1rem;
+}

@@ -1,0 +1,31 @@
+@import url(variables.css);
+@import url(header.css);
+@import url(footer.css);
+@import url(table.css);
+@import url(form.css);
+@import url(addBtn.css);
+@import url(flightCard.css);
+
+body {
+    margin:0; 
+}
+
+.body {
+    background-color: var(--background-color);
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+
+    background-image: url('/img/terminal.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+}
+
+#bodyShow{
+    background-image: none;
+}
+
+
