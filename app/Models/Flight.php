@@ -17,10 +17,11 @@ class Flight extends Model
         "departure",
         "arrival",
         "plane_id",
+        "reserved",
         "aviable"
     ];
 
-    public function airplane(): BelongsTo
+    public function plane(): BelongsTo
     {
         return $this->belongsTo(Plane::class);
     }

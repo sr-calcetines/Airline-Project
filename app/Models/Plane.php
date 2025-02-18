@@ -13,8 +13,7 @@ class Plane extends Model
 
     protected $fillable = [
         "name",
-        "max_capacity",
-        "reserved"
+        "max_capacity"
     ];
     public function flights(): HasMany
     {
