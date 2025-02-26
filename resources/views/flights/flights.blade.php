@@ -23,7 +23,9 @@
                     <th>Date</th>
                     <th>Departure</th>
                     <th>Arrival</th>
-                    <th>Places reserved</th>
+                    <th>Total Places</th>
+                    <th>Places Reserved</th>
+                    <th>Disponible Places</th>
                     <th>Availability</th>
                     @if(Auth::check() && Auth::user()->isAdmin)
                         <th>Actions</th>
@@ -40,9 +42,11 @@
                         <td>{{ $flight->date }}</td>
                         <td>{{ $flight->departure }}</td>
                         <td>{{ $flight->arrival }}</td>
+                        <td>{{ $flight->plane->max_capacity }}</td>
                         <td>{{ $flight->reserved }}</td>
+                        <td>{{ $flight->plane->max_capacity - $flight->reserved }}</td>
                         <td>
-                            @if ($flight->reserved && ($flight->reserved < $flight->plane->max_capacity))
+                            @if ($flight->reserved >= 0 && ($flight->reserved < $flight->plane->max_capacity))
                                 <span class="active">Available</span>
                             @else
                                 <span class="inactive">Not Available</span>
@@ -50,6 +54,9 @@
                         </td>
                         @if(Auth::check() && Auth::user()->isAdmin)
                             <td>
+                                <a href="#" class="crudBtn" data-flight-id="{{ $flight->id }}" onclick="event.stopPropagation(); openUserReservations({{ $flight->id }});">
+                                    <img src="{{ asset('img/user.png') }}" alt="user-Button" class="crudBtn">
+                                </a>
                                 <a href="{{ route('editFlightForm', $flight->id) }}" class="crudBtn">
                                     <img src="{{asset('img/edit.png') }}" alt="edit-Button" class="crudBtn">
                                 </a>
@@ -60,6 +67,25 @@
                         @endif
                     </tr>
                 @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="reservationModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeReservationModal()">&times;</span>
+        <h2>Reserved Users</h2>
+        <table id="reservationTable">
+            <thead>
+                <tr>
+                    <th>User's ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                
             </tbody>
         </table>
     </div>

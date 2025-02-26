@@ -1,0 +1,60 @@
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--tables-color);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    color: var(--text-color-dark);
+    margin-bottom: 15px;
+}
+
+.modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.modal-content table th,
+.modal-content table td {
+    padding: 12px;
+    border: 1px solid var(--secondary-color);
+    text-align: center;
+    color: var(--text-color);
+}
+
+.modal-content table th {
+    background-color: var(--secondary-color);
+}
+
+.modal-content table td {
+    color: var(--text-color-dark);
+}
+
+.modal-content .close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-color-dark);
+    cursor: pointer;
+}

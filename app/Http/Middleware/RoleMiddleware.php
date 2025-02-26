@@ -22,7 +22,7 @@ class RoleMiddleware
             return redirect('/')->with('error', 'No tienes permiso para acceder a esta página.');
         }
 
-        if ($role === 'user' && !$user) {
+        if ($role === 'user' && (!$user || $user->isAdmin)) {
             return redirect('/login')->with('error', 'Debes iniciar sesión.');
         }
 

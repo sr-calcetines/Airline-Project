@@ -67,7 +67,7 @@ class FlightController extends Controller
             'arrival' => $request->arrival,
             'plane_id' => $request->plane_id,
             'reserved' => $request->reserved,
-            'aviable' => 0
+            'aviable' => 1
         ]);
         $flights->save();
 
@@ -182,5 +182,25 @@ class FlightController extends Controller
                 "aviable" => 1
             ]);
         }
+    }
+
+    public function getReservations($id)
+    {
+        
+        if (!Auth::check() || !Auth::user()->isAdmin) {
+            abort(403, 'No autorizado');
+        }
+
+        $flight = Flight::with('users')->findOrFail($id);
+
+        $reservations = $flight->users->map(function($user) {
+            return [
+                'user_id'   => $user->id,
+                'user_name' => $user->name,
+                'user_email'=> $user->email,
+            ];
+        });
+
+        return response()->json($reservations);
     }
 }

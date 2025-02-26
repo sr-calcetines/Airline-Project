@@ -1,10 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\FlightController;
 
 Auth::routes();
+
+//User Routes
+Route::get('/flights/myFlights',[UserController::class, 'index'])->middleware('role:user')->name('userFlights');
 
 //Flights Routes
 Route::get('/', [FlightController::class, 'index'])->name('flights');
@@ -15,6 +19,7 @@ Route::get('/flights/{id}', [FlightController::class, 'edit'])->middleware('role
 Route::post('/flights/update/{id}', [FlightController::class, 'update'])->middleware('role:admin')->name('flightUpdate');
 Route::delete('/flights/destroy/{id}', [FlightController::class, 'destroy'])->middleware('role:admin')->name('flightDestroy');
 Route::get('/flights/show/{id}',[FlightController::class, 'show'])->name('flightShow');
+Route::get('/flights/{id}/reservations', [FlightController::class, 'getReservations'])->middleware('role:admin');
 
 //PLanes Routes 
 Route::get('/planes', [PlaneController::class, 'index'])->middleware('role:admin')->name('planes');

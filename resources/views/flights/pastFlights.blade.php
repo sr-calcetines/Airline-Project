@@ -23,7 +23,9 @@
                     <th>Date</th>
                     <th>Departure</th>
                     <th>Arrival</th>
-                    <th>Places reserved</th>
+                    <th>Total Places</th>
+                    <th>Places Reserved</th>
+                    <th>Disponible Places</th>
                     <th>Availability</th>
                     @if(Auth::check() && Auth::user()->isAdmin)
                         <th>Actions</th>
@@ -40,7 +42,9 @@
                         <td>{{ $pastFlight->date }}</td>
                         <td>{{ $pastFlight->departure }}</td>
                         <td>{{ $pastFlight->arrival }}</td>
+                        <td>{{ $pastFlight->plane->max_capacity }}</td>
                         <td>{{ $pastFlight->reserved }}</td>
+                        <td>{{ $pastFlight->plane->max_capacity - $pastFlight->reserved }}</td>
                         <td>
                             @if ($pastFlight->plane && ($pastFlight->reserved < $pastFlight->plane->max_capacity))
                                 <span class="active">Available</span>
@@ -50,6 +54,9 @@
                         </td>
                         @if(Auth::check() && Auth::user()->isAdmin)
                             <td>
+                                <a href="#" class="crudBtn" data-flight-id="{{ $pastFlight->id }}"onclick="event.stopPropagation(); openUserReservations({{ $pastFlight->id }});">
+                                    <img src="{{ asset('img/user.png') }}" alt="user-Button" class="crudBtn">
+                                </a>
                                 <a href="{{ route('editFlightForm', $pastFlight->id) }}" class="crudBtn">
                                     <img src="{{asset('img/edit.png') }}" alt="edit-Button" class="crudBtn">
                                 </a>
@@ -64,5 +71,25 @@
         </table>
     </div>
 </div>
+
+<div id="reservationModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeReservationModal()">&times;</span>
+        <h2>Reserved Users</h2>
+        <table id="reservationTable" class="table">
+            <thead>
+                <tr>
+                    <th>User's ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <script src="{{ asset('js/script3.js') }}"></script>
 @endsection

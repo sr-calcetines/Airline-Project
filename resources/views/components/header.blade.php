@@ -16,6 +16,9 @@
                     @if(Auth::check() && Auth::user()->isAdmin)
                         <a href="{{ route('planes') }}" class="btn btn-primary">Planes</a>
                     @endif
+                    @if(Auth::check() && !Auth::user()->isAdmin)
+                        <a href="{{ route('userFlights') }}" class="btn btn-primary">My Flights</a>
+                    @endif
                     <a href="{{ route('flights') }}" class="btn btn-primary">New Flights</a>
                 </div>
                

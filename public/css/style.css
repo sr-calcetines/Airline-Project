@@ -6,6 +6,7 @@
 @import url(addBtn.css);
 @import url(flightCard.css);
 @import url(fonts.css);
+@import url(modal.css);
 
 body {
     margin:0; 
