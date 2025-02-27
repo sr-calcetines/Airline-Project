@@ -1,66 +1,217 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+#  🛫 Pepe's Airline 🛬
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## :bulb:Project proposal
 
-## About Laravel
+The project aims to develop a management system for an airline. This system will allow the comprehensive management of users, flights, reservations and destinations, with advanced functionalities such as secure authentication through JWT, automatic management of flights without available seats or that have exceeded the deadline.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Requirements:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Min **70%** of **test coverage**. 
+- **Jira** should be used for **epic, user stories and tasks**.
+- **ALL** functionality must exist in **API REST** and verified by Postman.
+- On the **flight list sheet** with the **date organized** from closest to furthest but only those available on another screen are the **past flights**, including the **total seats** on the plane and the **seats still free**.
+- In blade the **reserve button** to reserve and **cancel** when it is reserved.
+- The **administrator cannot** make **reservations**.
+***
+### ☁️ Flights table 🗺️
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+This is the table for **Flights**. It should:
 
-## Learning Laravel
+- Display all **flights** *(Blade and Json)*.
+- Allow to **insert, modify or delete** a flight only for the admin *(Endpoints and blade)*.
+- Let user watch the **show** of a flight *(Endpoints and Blade)*.
+- The flight has a **date, a place of departure, an arrival place, an assigned plane and reserved seats.
+- **Automatically change the status** of the available flight to "false" when the flight *runs out* of available seats or is out of date.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+***
+### ✈️ Planes table 🛩️
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+This is the table for **Planes**. It should:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Display all **planes** *(Blade and Json)*.
+- Allow to **insert, modify or delete** a plane only for the admin *(Endpoints and blade)*.
+- Let user watch the **show** of plane *(Endpoints and Blade)*.
+- Planes have a **name, and the maximum number of seats**
+  
+***
+### 💺 PIVOT table (Reserve) 🧳
 
-## Laravel Sponsors
+- **Create flight reservations** only if the **selected route exists** and if there are **seats available** and the **date** has not passed.
+- You can only make **one reservation per flight** if you have booked it, you can only cancel it.
+- If there is **no reservation**, the option to **reserve must appear**.
+- Only a **User can reserve**, the **Guest can only view**.
+- **Availability check** before confirming a reservation.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+***
+## 👁️ Project overview
+| Role       | Available Views |
+|------------|-----------------|
+| Guest 🗣️   | <a href="https://github.com/user-attachments/assets/7487b342-f190-46bb-945a-d7d370250ea8"><img src="https://github.com/user-attachments/assets/7487b342-f190-46bb-945a-d7d370250ea8" width="80"></a> <a href="https://github.com/user-attachments/assets/1ec36da2-b04a-4356-99ea-21c00f9030b0"><img src="https://github.com/user-attachments/assets/1ec36da2-b04a-4356-99ea-21c00f9030b0" width="80"></a> <a href="https://github.com/user-attachments/assets/29e20242-cf2e-4cf8-bf96-55b8e3df28e6"><img src="https://github.com/user-attachments/assets/29e20242-cf2e-4cf8-bf96-55b8e3df28e6" width="80"></a> |
+| User 👤    | <a href="https://github.com/user-attachments/assets/fdd2f2bb-100b-406c-b458-5163e0e4000a"><img src="https://github.com/user-attachments/assets/fdd2f2bb-100b-406c-b458-5163e0e4000a" width="80"></a> <a href="https://github.com/user-attachments/assets/52000c78-cbf1-4860-8880-6fef724de747"><img src="https://github.com/user-attachments/assets/52000c78-cbf1-4860-8880-6fef724de747" width="80"></a> <a href="https://github.com/user-attachments/assets/1a1dbfd7-a851-49e0-b6f8-611f2d74c2dd"><img src="https://github.com/user-attachments/assets/1a1dbfd7-a851-49e0-b6f8-611f2d74c2dd" width="80"></a> <a href="https://github.com/user-attachments/assets/18698570-f5a1-461a-a4ea-401d67620ffa"><img src="https://github.com/user-attachments/assets/18698570-f5a1-461a-a4ea-401d67620ffa" width="80"></a> |
+| Admin 🛡️  | <a href="https://github.com/user-attachments/assets/afdd61c3-b161-4ce3-9e2d-52df39bac2b8"><img src="https://github.com/user-attachments/assets/afdd61c3-b161-4ce3-9e2d-52df39bac2b8" width="80"></a> <a href="https://github.com/user-attachments/assets/bbff95b5-d04b-4f74-8c67-ccbcc575ec46"><img src="https://github.com/user-attachments/assets/bbff95b5-d04b-4f74-8c67-ccbcc575ec46" width="80"></a> <a href="https://github.com/user-attachments/assets/ae39936a-b1a1-4369-9308-013903d48f7e"><img src="https://github.com/user-attachments/assets/ae39936a-b1a1-4369-9308-013903d48f7e" width="80"></a> <a href="https://github.com/user-attachments/assets/8281dbee-9431-4447-b949-d9e255635bef"><img src="https://github.com/user-attachments/assets/8281dbee-9431-4447-b949-d9e255635bef" width="80"></a> <a href="https://github.com/user-attachments/assets/cfba0c70-0c2e-4a22-8ff1-20e1474496be"><img src="https://github.com/user-attachments/assets/cfba0c70-0c2e-4a22-8ff1-20e1474496be" width="80"></a> <a href="https://github.com/user-attachments/assets/7b58e0ef-3a2d-4d37-a052-a7f02f39ba47"><img src="https://github.com/user-attachments/assets/7b58e0ef-3a2d-4d37-a052-a7f02f39ba47" width="80"></a> <a href="https://github.com/user-attachments/assets/89be2666-50ef-4602-b96b-feb203fda6a9"><img src="https://github.com/user-attachments/assets/89be2666-50ef-4602-b96b-feb203fda6a9" width="80"></a> <a href="https://github.com/user-attachments/assets/4f83e207-a297-4353-83ac-1b14f3e8e1e6"><img src="https://github.com/user-attachments/assets/4f83e207-a297-4353-83ac-1b14f3e8e1e6" width="80"></a> <a href="https://github.com/user-attachments/assets/84cefb0c-50c5-47bf-be16-7a8d6be24c99"><img src="https://github.com/user-attachments/assets/84cefb0c-50c5-47bf-be16-7a8d6be24c99" width="80"></a> |
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+***
+### Project Diagrams (BBDD)
 
-## Contributing
+![BBDD Diagram](https://github.com/user-attachments/assets/9d7a6b76-b274-4939-b884-a30f12cbe410)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+***
+## :scroll: Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1.) **Clone** this repository:
+```
+https://github.com/sr-calcetines/Airline-Project.git
+```
 
-## Security Vulnerabilities
+***
+2.) Install **Composer** and **NPM**
+```
+composer install
+```
+```
+npm install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+***
+3.) **Create** a *.env* file copying everything inside the existing file *.env.example* and **modify** the following **lines**:
+* DB_CONNECTION=mysql
+* DB_HOST=127.0.0.1
+* DB_PORT=3306
+* DB_DATABASE=airline
+* DB_USERNAME=root
+* DB_PASSWORD=
 
-## License
+***
+4.) Create a **database** in **MySQL**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+***
+5.) Now go to the **VSC terminal** and put the following commands:
+```
+php artisan migrate:fresh 
+php artisan migrate:fresh --seed
+```
+This command will **generate** all the **tables**.
+
+***
+6.) Open another terminal in **VSC** and put the following command
+```
+npm run dev
+```
+
+***
+7.) Open **another terminal** and **run** the **server** with this command:
+```
+php artisan serve
+```
+You'll see an **url** that is going to take you to a website.
+
+>[!IMPORTANT]
+>Be sure that your running npm and the server in **DIFFERENT** terminals, **DON'T** close these two terminals and **DON'T** use other commands in these two terminals.
+
+***
+### :floppy_disk: Installation requirements
+Before you start to read how to install the project you'll need these requirements:
+>[!NOTE]
+>If you can't install xampp, look for any other local server that supports **MySQL** and **PHP**
+***
+
+:black_circle: **XAMPP**
+
+:black_circle: Install **Composer**
+
+:black_circle: Install **NPM** in **Node.js**
+
+:black_circle: **Xdebug** (for the tests coverage)
+
+:black_circle: **Postman**
+
+***
+## :mag_right:Documentation
+
+### Endpoints
+***
+#### 🗺️ Flights table
+✏️ Create (POST)
+`http://127.0.0.1:8000/api/elf/store`
+
+📖 Read (GET)
+`http://127.0.0.1:8000/api/elf`
+
+💱 Update (PUT)
+`http://127.0.0.1:8000/api/elf/update/{id}`
+
+❌ Destroy (DELETE)
+`http://127.0.0.1:8000/api/elf/destroy/{id}`
+
+👁️ Show (GET)
+`http://127.0.0.1:8000/api/elf/show/{id}`
+***
+#### ✈️ Planes table
+✏️ Create (POST)
+`http://127.0.0.1:8000/api/santa/store`
+
+📖 Read (GET)
+`http://127.0.0.1:8000/api/santa`
+
+💱 Update (PUT)
+`http://127.0.0.1:8000/api/santa/update/{id}`
+
+❌ Destroy (DELETE)
+`http://127.0.0.1:8000/api/santa/destroy/{id}`
+
+👁️ Show (GET)
+`http://127.0.0.1:8000/api/santa/show{id}`
+
+***
+#### 🧳Reserve list
+💺 User's reservations (GET)
+`http://127.0.0.1:8000/api/santa/list`
+
+💺 Admin's users reservations (GET)
+`http://127.0.0.1:8000/api/santa/list`
+
+***
+## :white_check_mark: Tests
+
+> [!IMPORTANT]
+> It's important to test the project so we can check if it works correctly and to do that use this command in the **VSC** terminal:
+
+```
+php artisan test --coverage
+```
+![JOJO test](https://github.com/user-attachments/assets/d0360887-593a-4941-b1eb-45555340a147)
+
+***
+### Coverage
+
+To see the **coverage** you can use this command at the **VSC** terminal:
+```
+php artisan test --coverage-html=coverage-report
+```
+> [!IMPORTANT]
+> Everytime that you do **new tests** you need to put the command above in the **VSC** terminal, so it can **update** your coverage.
+This will add a **folder** called *coverage-report*, go to the folder, go to the *index.html*, and then **open with live server**. After that you should see this page:
+
+![coverage-report](https://github.com/user-attachments/assets/338277fa-b18d-491a-9701-4a703bff4a39)
+
+***
+## Languages and tools
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='PHP' src='https://img.shields.io/badge/PHP-100000?style=for-the-badge&logo=PHP&logoColor=white&labelColor=896696&color=896696'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='html5' src='https://img.shields.io/badge/html-100000?style=for-the-badge&logo=html5&logoColor=white&labelColor=FF8400&color=FF8400'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='css3' src='https://img.shields.io/badge/css-100000?style=for-the-badge&logo=css3&logoColor=white&labelColor=079FB0&color=079FB0'/></a>
+<a href='https://laravel.com' target="_blank"><img alt='Laravel' src='https://camo.githubusercontent.com/e410fca6849c63adce18d5744836c71a5772b86384130c28c9369df68921e7c0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c61726176656c2d3130303030303f7374796c653d666f722d7468652d6261646765266c6f676f3d6c61726176656c266c6f676f436f6c6f723d464646464646266c6162656c436f6c6f723d36363041304126636f6c6f723d363630413041'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='mysql' src='https://img.shields.io/badge/mysql-100000?style=for-the-badge&logo=mysql&logoColor=white&labelColor=1C662F&color=1C662F'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='git' src='https://img.shields.io/badge/git-100000?style=for-the-badge&logo=git&logoColor=white&labelColor=FF0000&color=FF0000'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='github' src='https://img.shields.io/badge/github-100000?style=for-the-badge&logo=github&logoColor=white&labelColor=000000&color=000000'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='canva' src='https://img.shields.io/badge/canva-100000?style=for-the-badge&logo=canva&logoColor=white&labelColor=A700FB&color=A700FB'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='xampp' src='https://img.shields.io/badge/xampp-100000?style=for-the-badge&logo=xampp&logoColor=white&labelColor=FF8800&color=FF8800'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='postman' src='https://img.shields.io/badge/postman-100000?style=for-the-badge&logo=postman&logoColor=white&labelColor=FF0000&color=FF0000'/></a>
+
+***
+## 👩‍💻 About me  
+DAW graduate, im a developer enhancing my skills through a bootcamp focused on frontend, backend, and AWS.
+- [José Ignacio Gavilán Sánchez](https://github.com/sr-calcetines)
+  
+
