@@ -14,7 +14,7 @@
                 <label for="max_capacity">Available places:</label>
                 <input type="number" name="max_capacity" class="form-control" required>
             </div>
-            <button type="submit" class="btn-submit">Create Flight</button>
+            <button type="submit" class="btn-submit">Create Plane</button>
         </form>
     </div>
 </div>
