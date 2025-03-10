@@ -29,7 +29,7 @@
                         </div>
                     @elseif ($booked && !Auth::user()->isAdmin)
                         <div class="bookDiv">
-                            <a class="bookBtn" href="{{ route('flightShow', ['id' => $flights->id, 'action' => 'unbook']) }}">
+                            <a class="bookBtn" href="{{ route('flightShow', ['id' => $flights->id, 'action' => 'unbook']) }}"onclick="return confirm('Are you sure you want to cancel your book?')">
                                 <p>Unbook</p>
                             </a>
                         </div>

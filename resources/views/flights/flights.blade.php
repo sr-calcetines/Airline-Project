@@ -60,8 +60,8 @@
                                 <a href="{{ route('editFlightForm', $flight->id) }}" class="crudBtn">
                                     <img src="{{asset('img/edit.png') }}" alt="edit-Button" class="crudBtn">
                                 </a>
-                                <a href="?action=delete&id={{ $flight->id }}">
-                                    <img src="{{ asset('img/delete.png') }}" alt="delete-Button" class="crudBtn">
+                                <a href="?action=delete&id={{ $flight->id }}" onclick="return confirm('Are you sure you want to delete this flight? ID: {{ $flight->id }}')">
+                                    <img src="{{ asset('img/delete.png') }}" alt="Delete Button" class="crudBtn">
                                 </a>
                             </td>
                         @endif
