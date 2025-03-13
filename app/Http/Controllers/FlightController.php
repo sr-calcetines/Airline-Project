@@ -49,7 +49,7 @@ class FlightController extends Controller
      */
     public function create()
     {
-        if( Auth::user()->isAdmin=true){
+        if( Auth::user()->isAdmin){
 
             return view('flights.createFlightForm');
 
@@ -102,7 +102,7 @@ class FlightController extends Controller
     public function edit(string $id)
     {
         
-        if( Auth::user()->isAdmin=true){
+        if( Auth::user()->isAdmin){
 
             $flights = Flight::find($id);
             return view('flights.editFlightForm', compact('flights'));
@@ -135,12 +135,13 @@ class FlightController extends Controller
      */
     public function destroy(string $id)
     {
-        if( Auth::user()->isAdmin=true){
+        if( Auth::user()->isAdmin){
 
             $flights = Flight::find($id);
             $flights->delete();
-
         }
+        
+        return redirect()->route('flights'); 
     }
 
     public function book(Flight $flight, int $userId)
