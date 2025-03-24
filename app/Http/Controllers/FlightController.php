@@ -187,10 +187,6 @@ class FlightController extends Controller
 
     public function getReservations($id)
     {
-        
-        if (!Auth::check() || !Auth::user()->isAdmin) {
-            abort(403, 'No autorizado');
-        }
 
         $flight = Flight::with('users')->findOrFail($id);
 

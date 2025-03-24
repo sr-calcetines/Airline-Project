@@ -19,7 +19,7 @@ Route::get('/flights/{id}', [FlightController::class, 'edit'])->middleware('role
 Route::post('/flights/update/{id}', [FlightController::class, 'update'])->middleware('role:admin')->name('flightUpdate');
 Route::delete('/flights/destroy/{id}', [FlightController::class, 'destroy'])->middleware('role:admin')->name('flightDestroy');
 Route::get('/flights/show/{id}',[FlightController::class, 'show'])->name('flightShow');
-Route::get('/flights/{id}/reservations', [FlightController::class, 'getReservations'])->middleware('role:admin');
+Route::get('/flights/{id}/reservations', [FlightController::class, 'getReservations'])->middleware('role:admin')->name('flightReservations');
 
 //PLanes Routes 
 Route::get('/planes', [PlaneController::class, 'index'])->middleware('role:admin')->name('planes');
