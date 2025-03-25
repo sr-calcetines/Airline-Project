@@ -13,11 +13,11 @@ class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_registerUser(): void
+    public function test_if_user_registers_successfully(): void
     {
         $response = $this->post(route("register"), [
             "name" => "test",
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678",
             "password_confirmation" => "12345678"
         ]);
@@ -26,11 +26,11 @@ class AuthControllerTest extends TestCase
         $this->assertDatabaseCount("users", 1);
     }
 
-    public function test_badRegisterUser(): void
+    public function test_if_user_register_fails_due_to_missing_confirmation(): void
     {
         $response = $this->post(route("register"), [
             "name" => "test",
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ]);
 
@@ -38,27 +38,27 @@ class AuthControllerTest extends TestCase
         $this->assertDatabaseCount("users", 0);
     }
 
-    public function test_registerApiUser(): void
+    public function test_if_api_user_registers_successfully(): void
     {
         $response = $this->post("/api/auth/register", [
             "name" => "test",
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678",
             "password_confirmation" => "12345678"
         ]);
 
         $response->assertStatus(201)->assertJsonFragment([
             "name" => "test",
-            "email" => "test@test.com"
+            "email" => "example@example.com"
         ]);
         $this->assertDatabaseCount("users", 1);
     }
 
-    public function test_badRegisterApiUser(): void
+    public function test_if_api_user_register_fails_due_to_invalid_data(): void
     {
         $response = $this->post("/api/auth/register", [
             "name" => "test",
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678",
         ]);
 
@@ -66,10 +66,10 @@ class AuthControllerTest extends TestCase
         $this->assertDatabaseCount("users", 0);
     }
 
-    public function test_loginUser(): void
+    public function test_if_user_can_login_successfully(): void
     {
         $user = User::factory()->create([
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ]);
         $response = $this->post(route("login"), [
@@ -80,10 +80,10 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(302)->assertRedirect("/");
     }
 
-    public function test_badLoginUser(): void
+    public function test_if_user_login_fails_with_wrong_password(): void
     {
         $user = User::factory()->create([
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ]);
         $response = $this->post(route("login"), [
@@ -94,36 +94,36 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(302)->assertRedirect("/");
     }
 
-    public function test_loginApiUser(): void
+    public function test_if_api_user_can_login_successfully(): void
     {
         $user = User::factory()->create([
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ]);
         $response = $this->post("/api/auth/login", [
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678",
         ]);
         $response->assertStatus(200)->assertJsonStructure(["access_token", "token_type", "expires_in"]);
     }
 
-    public function test_badLoginApiUser(): void
+    public function test_if_api_user_login_fails_with_invalid_credentials(): void
     {
         $user = User::factory()->create([
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ]);
         $response = $this->post("/api/auth/login", [
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "1234567",
         ]);
         $response->assertStatus(401)->assertJsonFragment(["error" => "Unauthorized"]);
     }
 
-    public function test_getCurrentUser(): void
+    public function test_if_api_returns_current_authenticated_user(): void
     {
         $credentials = [
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ];
         $user = User::factory()->create($credentials);
@@ -137,10 +137,10 @@ class AuthControllerTest extends TestCase
         ]);
     }
 
-    public function test_refreshUser(): void
+    public function test_if_api_can_refresh_token(): void
     {
         $credentials = [
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ];
         $user = User::factory()->create($credentials);
@@ -150,10 +150,10 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(200)->assertJsonStructure(["access_token", "token_type", "expires_in"]);
     }
 
-    public function test_logoutUser(): void
+    public function test_if_web_user_can_logout_successfully(): void
     {
         $credentials = [
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ];
         $user = User::factory()->create($credentials);
@@ -164,10 +164,10 @@ class AuthControllerTest extends TestCase
         $this->assertFalse(auth()->check());
     }
 
-    public function test_logoutApiUser(): void
+    public function test_if_api_user_can_logout_successfully(): void
     {
         $credentials = [
-            "email" => "test@test.com",
+            "email" => "example@example.com",
             "password" => "12345678"
         ];
         $user = User::factory()->create($credentials);
@@ -176,4 +176,5 @@ class AuthControllerTest extends TestCase
 
         $response->assertStatus(200)->assertJsonFragment(["message" => "Successfully logged out"]);
     }
+    
 }
