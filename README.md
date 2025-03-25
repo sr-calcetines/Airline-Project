@@ -134,43 +134,52 @@ Before you start to read how to install the project you'll need these requiremen
 ***
 #### 🗺️ Flights table
 ✏️ Create (POST)
-`http://127.0.0.1:8000/api/elf/store`
+`http://127.0.0.1:8000/api/flights/store`
 
 📖 Read (GET)
-`http://127.0.0.1:8000/api/elf`
+`http://127.0.0.1:8000/api/flights`
 
 💱 Update (PUT)
-`http://127.0.0.1:8000/api/elf/update/{id}`
+`http://127.0.0.1:8000/api/flights/update/{id}`
 
 ❌ Destroy (DELETE)
-`http://127.0.0.1:8000/api/elf/destroy/{id}`
+`http://127.0.0.1:8000/api/flights/destroy/{id}`
 
 👁️ Show (GET)
-`http://127.0.0.1:8000/api/elf/show/{id}`
+`http://127.0.0.1:8000/api/flights/show/{id}`
 ***
 #### ✈️ Planes table
 ✏️ Create (POST)
-`http://127.0.0.1:8000/api/santa/store`
+`http://127.0.0.1:8000/api/planes/store`
 
 📖 Read (GET)
-`http://127.0.0.1:8000/api/santa`
+`http://127.0.0.1:8000/api/planes`
 
 💱 Update (PUT)
-`http://127.0.0.1:8000/api/santa/update/{id}`
+`http://127.0.0.1:8000/api/planes/update/{id}`
 
 ❌ Destroy (DELETE)
-`http://127.0.0.1:8000/api/santa/destroy/{id}`
+`http://127.0.0.1:8000/api/planes/destroy/{id}`
 
 👁️ Show (GET)
-`http://127.0.0.1:8000/api/santa/show{id}`
+`http://127.0.0.1:8000/api/planes/show{id}`
 
 ***
-#### 🧳Reserve list
-💺 User's reservations (GET)
-`http://127.0.0.1:8000/api/santa/list`
+#### 🧳Uses Table
+📝 User Register (POST)
+`http://127.0.0.1:8000/api/auth/register`
 
-💺 Admin's users reservations (GET)
-`http://127.0.0.1:8000/api/santa/list`
+✅ User Login (POST)
+`http://127.0.0.1:8000/api/auth/login`
+
+❌ User Logout (POST)
+`http://127.0.0.1:8000/api/auth/logout`
+
+🔄 User Refresh (POST)
+`http://127.0.0.1:8000/api/auth/refresh`
+
+🧑 User Me (POST)
+`http://127.0.0.1:8000/api/auth/me`
 
 ***
 ## :white_check_mark: Tests
@@ -181,7 +190,8 @@ Before you start to read how to install the project you'll need these requiremen
 ```
 php artisan test --coverage
 ```
-![JOJO test](https://github.com/user-attachments/assets/d0360887-593a-4941-b1eb-45555340a147)
+![Feature test](https://github.com/user-attachments/assets/06121d77-fe04-4aac-bb44-a269bb1d4ba1)
+
 
 ***
 ### Coverage
@@ -194,7 +204,8 @@ php artisan test --coverage-html=coverage-report
 > Everytime that you do **new tests** you need to put the command above in the **VSC** terminal, so it can **update** your coverage.
 This will add a **folder** called *coverage-report*, go to the folder, go to the *index.html*, and then **open with live server**. After that you should see this page:
 
-![coverage-report](https://github.com/user-attachments/assets/338277fa-b18d-491a-9701-4a703bff4a39)
+![coverage-report](https://github.com/user-attachments/assets/ef2fedc1-9d14-47d4-8905-95a5e9363d37)
+
 
 ***
 ## Languages and tools
